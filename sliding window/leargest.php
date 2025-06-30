@@ -6,26 +6,39 @@ class Solution {
      * @param Integer[] $nums
      * @return Integer
      */
+    // function findLHS($nums) {
+    //     sort($nums); 
+    //     $start = 0;
+    //     $maxLength = 0;
+    //     $count = count($nums);
+
+    //     for ($end = 0; $end < $count; $end++) {
+
+    //         while ($nums[$end] - $nums[$start] > 1) {
+
+    //             $start++;
+    //         }
+
+    //         if ($nums[$end] - $nums[$start] == 1) {
+    //             $currentLength = $end - $start + 1;
+    //             $maxLength = max($maxLength, $currentLength);
+    //         }
+    //     }
+
+    //     return $maxLength;
+    // }
     function findLHS($nums) {
-        sort($nums); 
-        $start = 0;
-        $maxLength = 0;
-        $count = count($nums);
+        $count = array_count_values($nums);
+        $maxLen = 0;
 
-        for ($end = 0; $end < $count; $end++) {
-
-            while ($nums[$end] - $nums[$start] > 1) {
-
-                $start++;
-            }
-
-            if ($nums[$end] - $nums[$start] == 1) {
-                $currentLength = $end - $start + 1;
-                $maxLength = max($maxLength, $currentLength);
+        foreach ($count as $num => $freq) {
+            if (isset($count[$num + 1])) {
+                $maxLen = max($maxLen, $freq + $count[$num + 1]);
             }
         }
 
-        return $maxLength;
+        return $maxLen;
+
     }
 }
 $sample = [
